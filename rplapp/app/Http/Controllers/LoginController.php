@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function showLoginPage(){
         // Cek apakah sudah ada session aktif
-        if (session()->has('userId')) {
+        if (session()->has('userId')) { 
             if(session('userId')==1){
                 return redirect('/gudang'); // Ganti dengan halaman yang sesuai
             }

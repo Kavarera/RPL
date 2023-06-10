@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\barang;
+use App\Models\permintaanbeli;
 use Illuminate\Http\Request;
 
 class GudangController extends Controller
@@ -37,9 +38,16 @@ class GudangController extends Controller
     }
 
     public function beliBarang($id){
-        $barang = barang::find($id);
-        $barang->stok+=100;
-        $barang->save();
+        //permintaan beli ke direktur
+        $pb = new permintaanbeli;
+        $pb->idKaryawan = session('userId');
+        $pb->id_barang = $id;        
+        $pb->save();
+
+
+        // $barang = barang::find($id);
+        // $barang->stok+=100;
+        // $barang->save(); 
         return redirect()->route('gudang');
     }
     
