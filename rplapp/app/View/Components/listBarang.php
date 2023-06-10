@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class listBarang extends Component
 {
+    public $barang;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($barang)
     {
-        //
+        $this->barang=$barang;
     }
 
     /**

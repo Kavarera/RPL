@@ -18,12 +18,19 @@
                 -webkit-backdrop-filter: blur(10px) brightness(97%);
             }
             
+
+            html{
+                background-image: url('{{ asset('images/login.jpg') }}');
+                background-size:cover;
+            }
+
         </style>
     </head>
-    <body class="antialiased bg-cover bg-center login-bg" >
+    <body class="antialiased background bg-cover bg-center login-bg">
         <div class="flex justify-center items-center min-h-screen">
             <div class="w-full max-h-full max-w-sm rounded-md py-8 px-4 blur-background">
-                <form class="shadow-md rounded px-8 pt-6 pb-8 mb-4" id="form">
+                <form method="POST" action="{{ route('loginVerify') }}" class="shadow-md rounded px-8 pt-6 pb-8 mb-4" id="form">
+                    @csrf
                     <div class="block text-center mb-6">
                         <h1 class="font-bold font-sans text-white">
                             Vanguard Solution <br>
@@ -35,18 +42,18 @@
                             Username
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform focus:scale-110 hover:scale-110"
-                            id="username" autocomplete="off" type="text" placeholder="Username">
+                            id="username" name="username" required autocomplete="off" type="text" placeholder="Username">
                     </div>
                     <div class="mb-6">
                         <label class="block text-sm text-white font-bold mb-2" for="password">
                             Password
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform focus:scale-110 hover:scale-110"
-                            id="password" type="password" placeholder="Password">
+                            id="password" name="password" required type="password" placeholder="Password">
                     </div>
                     <div class="flex justify-center items-center">
                         <button class="items-center w-full bg-gray-700 hover:bg-gray-200 hover:text-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-110"
-                            type="button">
+                            type="submit">
                             Sign In
                         </button>
                     </div>
