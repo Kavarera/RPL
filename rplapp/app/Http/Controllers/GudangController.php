@@ -9,8 +9,15 @@ use Illuminate\Http\Request;
 class GudangController extends Controller
 {
     public function showGudangPage(){
-        $barangs = barang::all();
-        return view('gudang.gudang',['barangs' => $barangs ,'data'=>null]);
+        if (session()->has('userId')) {
+            if(session('userId')!=1){
+                return redirect()->route('login');
+            }
+            else{
+                $barangs = barang::all();
+                return view('gudang.gudang',['barangs' => $barangs ,'data'=>null]);
+            }
+        }
     }
 
     public function deleteBarang(Request $r){

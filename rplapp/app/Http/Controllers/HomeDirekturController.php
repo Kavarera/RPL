@@ -10,8 +10,19 @@ use Illuminate\Http\Request;
 class HomeDirekturController extends Controller
 {
     public function showPage(){
-        $lpb = permintaanbeli::all();
-        return view('derektur.HomeDirektur',['lpb'=>$lpb,'dpb'=>null,'baranga'=>null]);
+        if (session()->has('userId')) {
+            if(session('userId')!=2){
+                return redirect()->route('login');
+            }
+            else{
+                $lpb = permintaanbeli::all();
+                return view('derektur.HomeDirektur',['lpb'=>$lpb,'dpb'=>null,'baranga'=>null]);
+            }
+        }
+        else{
+            return redirect()->route('login');
+        }
+        
     }
 
     public function detailPb(Request $r){

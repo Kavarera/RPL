@@ -9,8 +9,15 @@ use Illuminate\Http\Request;
 class HargaController extends Controller
 {
     public function showPage(){
-        $bo = biayaOperasional::all();
-        return view('keuangan.Biaya',['datas'=>$bo,'modal'=>false,'barang'=>null]);
+        if (session()->has('userId')) {
+            if(session('userId')!=3){
+                return redirect()->route('login');
+            }
+            else{
+                $bo = biayaOperasional::all();
+                return view('keuangan.Biaya',['datas'=>$bo,'modal'=>false,'barang'=>null]);
+            }
+        }
     }
     public function addBiaya(Request $r){
         $bo = new biayaOperasional;

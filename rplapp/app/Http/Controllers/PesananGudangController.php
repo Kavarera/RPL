@@ -9,8 +9,15 @@ use Illuminate\Http\Request;
 class PesananGudangController extends Controller
 {
     public function showPage(){
-        $listPesanan = ListPesanan::where('status','Menunggu Konfirmasi')->get();
-        return view('gudang.PesananGudang',['listPesanan'=>$listPesanan]);
+        if (session()->has('userId')) {
+            if(session('userId')!=1){
+                return redirect()->route('login');
+            }
+            else{
+                $listPesanan = ListPesanan::where('status','Menunggu Konfirmasi')->get();
+                return view('gudang.PesananGudang',['listPesanan'=>$listPesanan]);
+            }
+        }
     }
     public function validasiPesanan(Request $r){
         $lp = ListPesanan::find($r->input('idPesanan'));

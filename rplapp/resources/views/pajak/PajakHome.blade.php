@@ -41,7 +41,7 @@
             <a href="#" class="text-white text-xl font-bold"></a> -->
           </div>
             <div class="text-white">
-                <div class="mb-1 text-right">Karyawan Pajak</div>
+                <div class="mb-1 text-right">{{$user->nama}}</div>
                 <div class="text-xs text-right">Accounting</div>
             </div>
         </div>

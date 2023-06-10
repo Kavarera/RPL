@@ -9,20 +9,34 @@ use Illuminate\Http\Request;
 class HomeKeuanganController extends Controller
 {
     public function showPage(){
-        return view('keuangan.HomeKeuangan');
+        if (session()->has('userId')) {
+            if(session('userId')!=3){
+                return redirect()->route('login');
+            }
+            else{
+                return view('keuangan.HomeKeuangan');
+            }
+        }
     }
 
     public function showPengeluaran(){
-        $listPb = pembelianbarang::all();
-        $collectiondata =[];
-        foreach($listPb as $p){
-            $tempB = barang::find($p->id_barang);
-            $data['pb'] = $p;
-            $data['barang'] = $tempB;
-            $collectiondata[] = $data;
+        if (session()->has('userId')) {
+            if(session('userId')!=3){
+                return redirect()->route('login');
+            }
+            else{
+                $listPb = pembelianbarang::all();
+                $collectiondata =[];
+                foreach($listPb as $p){
+                    $tempB = barang::find($p->id_barang);
+                    $data['pb'] = $p;
+                    $data['barang'] = $tempB;
+                    $collectiondata[] = $data;
+                }
+                //dd($collectiondata);
+                return view('keuangan.Pengeluaran',['datas'=>$collectiondata,'modal'=>false]);
+            }
         }
-        //dd($collectiondata);
-        return view('keuangan.Pengeluaran',['datas'=>$collectiondata,'modal'=>false]);
     }
 
     public function showModalPengeluaran(){

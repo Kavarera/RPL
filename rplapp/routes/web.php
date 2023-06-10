@@ -4,8 +4,10 @@ use App\Http\Controllers\GudangController;
 use App\Http\Controllers\HargaController;
 use App\Http\Controllers\HomeDirekturController;
 use App\Http\Controllers\HomeKeuanganController;
+use App\Http\Controllers\PajakController;
 use App\Http\Controllers\PesananGudangController;
 use App\Http\Controllers\PengirimanGudangController;
+use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 
@@ -54,12 +56,9 @@ Route::get('/keuangan/pengeluaran', [HomeKeuanganController::class,'showPengelua
 Route::get('/keuangan/pengeluaran/add',[HomeKeuanganController::class,'showModalPengeluaran'])->name('add_pengeluaran');
 Route::post('keuangan/pengeluaran/submit',[HomeKeuanganController::class,'submitPengeluaran'])->name('submitPengeluaran');
 
-Route::post('/pajak', function () {
-    return view('pajak.PajakHome');
-});
+Route::get('/pajak', [PajakController::class,'showPage'])->name('pajak');
 
 
-Route::post('/sales', function () {
-    return view('seles.HomeSales');
-});
+Route::get('/sales', [SalesController::class,'showPage'])->name('sales');
+Route::post('/sales/addPemesan',[SalesController::class,'addPemesan'])->name('addPemesan');
 

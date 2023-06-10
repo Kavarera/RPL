@@ -9,8 +9,15 @@ use App\Models\barang;
 class PengirimanGudangController extends Controller
 {
     public function showPage(){
-        $listPesanan = ListPesanan::where('status','Proses Pengiriman')->get();
-        return view('gudang.PengirimanGudang',['listPesanan'=>$listPesanan]);
+        if (session()->has('userId')) {
+            if(session('userId')!=1){
+                return redirect()->route('login');
+            }
+            else{
+                $listPesanan = ListPesanan::where('status','Proses Pengiriman')->get();
+                return view('gudang.PengirimanGudang',['listPesanan'=>$listPesanan]);
+            }
+        }
     }
     public function validatePengiriman(Request $r){
         $lp = ListPesanan::find($r->input('idPesanan'));

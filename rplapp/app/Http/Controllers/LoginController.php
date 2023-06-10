@@ -10,9 +10,22 @@ class LoginController extends Controller
     public function showLoginPage(){
         // Cek apakah sudah ada session aktif
         if (session()->has('userId')) { 
-            if(session('userId')==1){
-                return redirect('/gudang'); // Ganti dengan halaman yang sesuai
-            }
+                if(session('userId')==1){
+                    //dd($user);
+                    return redirect('/gudang');
+                }
+                else if(session('userId')==2){
+                    return redirect()->route('direktur');
+                }
+                else if(session('userId')==3){
+                    return redirect()->route('keuangan');
+                }
+                else if(session('userId')==4){
+                    return redirect()->route('pajak');
+                }
+                else if(session('userId')==5){
+                    return redirect()->route('sales');
+                } // Ganti dengan halaman yang sesuai
             // Jika sudah ada session, arahkan pengguna ke halaman lain
         }
         return view('Login.welcome');
@@ -40,10 +53,10 @@ class LoginController extends Controller
                 return redirect()->route('keuangan');
             }
             if($idrole==4){
-                //return redirect()->route('pajak');
+                return redirect()->route('pajak');
             }
             if($idrole==5){
-                return view('seles.HomeSales');
+                return redirect()->route('sales');
             }
             // Jika credentials valid, lakukan tindakan sesuai kebutuhan (contoh: login pengguna)
             
