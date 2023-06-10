@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GudangController;
+use App\Http\Controllers\HomeDirekturController;
 use App\Http\Controllers\PesananGudangController;
 use App\Http\Controllers\PengirimanGudangController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,11 @@ Route::post('/gudang/pengiriman/validasi', [PengirimanGudangController::class,'v
 
 
 
+Route::get('/direktur', [HomeDirekturController::class,'showPage'])->name('direktur');
+Route::post('/direktur/detail/{id}',[HomeDirekturController::class,'detailPb'])->name('showPb');
+Route::post('/direktur/konfirmasi',[HomeDirekturController::class,'konfirmasiBeli'])->name('konfirmasi_beli');
+
+
 
 
 
@@ -45,18 +51,12 @@ Route::get('/keuangan/pengeluaran', function () {
 });
 
 
-Route::get('/direktur', function () {
-    return view('derektur.HomeDirektur');
-});
-
-
-
-Route::get('/pajak', function () {
+Route::post('/pajak', function () {
     return view('pajak.PajakHome');
 });
 
 
-Route::get('/sales', function () {
+Route::post('/sales', function () {
     return view('seles.HomeSales');
 });
 

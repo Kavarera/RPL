@@ -10,7 +10,7 @@ class permintaanbeli extends Model
     use HasFactory;
 
     protected $table = "permintaanbeli";
-    protected $fillable = ['idKaryawan','id_barang',
-];
+    protected $fillable = ['idKaryawan','id_barang'];
+    
 public $timestamps=false;
 }

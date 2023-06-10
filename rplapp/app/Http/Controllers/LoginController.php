@@ -34,7 +34,8 @@ class LoginController extends Controller
                 return redirect('/gudang');
             }
             if($idrole==2){
-                return view('derektur.HomeDirektur');
+                session(['userId' => $idrole]);
+                return redirect()->route('direktur');
             }
             if($idrole==3){
                 return view('pajak.PajakHome');
