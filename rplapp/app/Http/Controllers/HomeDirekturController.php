@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\pembelianbarang;
 use App\Models\permintaanbeli;
 use App\Models\barang;
 use Illuminate\Http\Request;
@@ -26,6 +27,14 @@ class HomeDirekturController extends Controller
         if($stat==1){
             $dpb = $r->input('idPb');
             $dpb = permintaanbeli::find($dpb);
+            $barang = barang::find($dpb->id_barang);
+            $pb = new pembelianbarang;
+            $pb->id_barang = $barang->id;
+            $pb->jumlah = $dpb->banyak;
+            $pb->total_harga = $barang->harga_beli * $dpb->banyak;
+            $pb->save();
+            $barang->stok += $dpb->banyak;
+            $barang->save();
             $dpb->delete();
         }
         return redirect()->route('direktur');

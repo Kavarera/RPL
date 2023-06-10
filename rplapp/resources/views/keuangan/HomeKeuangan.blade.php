@@ -22,19 +22,19 @@
         <div class="p-12">
             <div class="flex justify-center items-center mb-8">
                 <div class="card mr-4 border-4 p-6 rounded-lg">
-                    <a href="Pengeluaran.blade.php">
+                    <a href="{{route('pengeluaran')}}">
                         <img class="w-32 mt-auto" src="{{asset('images/test.png')}}" alt="Pengeluaran Perbulan" id="" />
                         <h6 class="text-center mt-3">Pengeluaran bulanan</h6>
                     </a>
                 </div>
                 <div class="card mr-4 border-4 p-6 rounded-lg">
-                    <a href="Biaya.blade.php">
+                    <a href="{{route('biaya')}}">
                         <img class="w-32 mt-auto" src="{{asset('images/analytics.png')}}" alt="Biaya Oprasonal" id="" />
                         <h6 class="text-center mt-3">Biaya Oprasonal</h6>
                     </a>
                 </div>
                 <div class="card mr-4 border-4 p-6 rounded-lg">
-                    <a href="Harga.blade.php">
+                    <a href="{{route('harga')}}">
                         <img class="w-32 mt-auto" src="{{asset('images/box.png')}}" alt="Harga Barang" id="" />
                         <h6 class="text-center mt-3">Harga Barang</h6>
                     </a>

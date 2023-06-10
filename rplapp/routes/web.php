@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\GudangController;
+use App\Http\Controllers\HargaController;
 use App\Http\Controllers\HomeDirekturController;
+use App\Http\Controllers\HomeKeuanganController;
 use App\Http\Controllers\PesananGudangController;
 use App\Http\Controllers\PengirimanGudangController;
 use Illuminate\Support\Facades\Route;
@@ -37,19 +39,20 @@ Route::post('/direktur/konfirmasi',[HomeDirekturController::class,'konfirmasiBel
 
 
 
-Route::get('/keuangan', function () {
-    return view('keuangan.HomeKeuangan');
-});
-Route::get('/keuangan/biaya', function () {
-    return view('keuangan.biaya');
-});
-Route::get('/keuangan/harga', function () {
-    return view('keuangan.harga');
-});
-Route::get('/keuangan/pengeluaran', function () {
-    return view('keuangan.pengeluaran');
-});
+Route::get('/keuangan', [HomeKeuanganController::class,'showPage'])->name('keuangan');
+Route::get('/keuangan/biaya', [HargaController::class,'showPage'])->name('biaya');
+Route::post('/keuangan/biaya/add', [HargaController::class,'addBiaya'])->name('addBiaya');
+Route::get('/keuangan/biaya/modal',[HargaController::class, 'showModalBiaya'])->name('showModalBiaya');
 
+Route::get('/keuangan/harga', [HargaController::class,'showHargaPage'])->name('harga');
+Route::get('/keuangan/harga/modal/{id}', [HargaController::class,'showHargaModal'])->name('showHargaModal');
+Route::post('/keuangan/harga/submit', [HargaController::class,'submitHarga'])->name('submitHarga');
+Route::get('/keuangan/harga/hapus/{id}',[HargaController::class,'hapusHarga'])->name('hapusHarga');
+
+
+Route::get('/keuangan/pengeluaran', [HomeKeuanganController::class,'showPengeluaran'])->name('pengeluaran');
+Route::get('/keuangan/pengeluaran/add',[HomeKeuanganController::class,'showModalPengeluaran'])->name('add_pengeluaran');
+Route::post('keuangan/pengeluaran/submit',[HomeKeuanganController::class,'submitPengeluaran'])->name('submitPengeluaran');
 
 Route::post('/pajak', function () {
     return view('pajak.PajakHome');

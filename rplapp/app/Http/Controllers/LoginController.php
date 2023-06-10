@@ -28,20 +28,19 @@ class LoginController extends Controller
         //$user && password_verify($credentials['password'], $user->password)
         $idrole = $user->id_role;
         if ($user && ($credentials['password']== $user->password)) {
+            session(['userId' => $idrole]);
             if($idrole==1){
                 //dd($user);
-                session(['userId' => $idrole]);
                 return redirect('/gudang');
             }
             if($idrole==2){
-                session(['userId' => $idrole]);
                 return redirect()->route('direktur');
             }
             if($idrole==3){
-                return view('pajak.PajakHome');
+                return redirect()->route('keuangan');
             }
             if($idrole==4){
-                return view('keuangan.HomeKeuangan');
+                //return redirect()->route('pajak');
             }
             if($idrole==5){
                 return view('seles.HomeSales');

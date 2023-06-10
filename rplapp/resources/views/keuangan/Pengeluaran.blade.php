@@ -25,58 +25,63 @@
             </h6>
         </div>
         <div class="flex items-center space-x-2">
-            <button class="bg-green-500 text-white px-4 py-2 rounded-full flex items-center" onclick="togglePopup()">
-                <img src="imgKeuangan/add.png" alt="Tambah" class="w-4 h-4 mr-2">
+            <a href="{{route('add_pengeluaran')}}" class="bg-green-500 text-white px-4 py-2 rounded-full flex items-center">
+                <img src="{{asset('images/add.png')}}" alt="Tambah" class="w-4 h-4 mr-2">
                 Tambah
-            </button>
+            </a>
             <button class="bg-blue-500 text-white px-4 py-2 rounded-full flex items-center">
-                <img src="imgKeuangan/download.png" alt="Unduh" class="w-4 h-4 mr-2">
+                <img src="{{asset('images/download.png')}}" alt="Unduh" class="w-4 h-4 mr-2">
                 Unduh
             </button>
         </div>
     </div>
     <!-- bagian card data nya -->
-    <div class="my-5 mx-5 border-rounded-full">
-        <div class="bg-gray-300">
-            <div class="flex items-center">
-                <div class="ml-4">
-                    <div class="text-xl font-bold">Restock Nama Barang</div>
-                    <div class="text-sm">Stok    :</div>
-                    <div class="text-sm"> Harga satuan: </div>
-                </div>
-                <div class="ml-auto flex space-x-10">
-                   <div class="m-3 p-2">Harga Total  
-                   <div class="text-red-500">RP.67890</div>
-                   </div>
+    @foreach ($datas as $d)
+        <div class="my-5 mx-5 border-rounded-full">
+            <div class="bg-gray-300">
+                <div class="flex items-center">
+                    <div class="ml-4">
+                        <div class="text-xl font-bold">Restock {{$d['barang']->nama}}</div>
+                        <div class="text-sm">Stok    : {{$d['pb']->jumlah}} </div>
+                        <div class="text-sm"> Harga satuan: Rp. {{$d['barang']->harga_beli}} </div>
+                    </div>
+                    <div class="ml-auto flex space-x-10">
+                    <div class="m-3 p-2">Harga Total  
+                    <div class="text-red-500">RP.{{ $d['pb']->total_harga }} </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 
     <!-- Popup -->
-    <div class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    @if ($modal==true)
+    <div class="fixed inset-0 flex items-center justify-center z-50 ">
         <div class="bg-white rounded-lg p-8 max-w-md bg-gray-200">
             <h2 class="text-2xl mb-4 font-bold">Tambah Barang</h2>
-            <form>
+            <form action="{{route('submitPengeluaran')}}" method="POST">
+                @csrf
                 <div class="mb-4">
                     <label for="nama-barang" class="block mb-2">Nama Barang</label>
-                    <input type="text" id="nama-barang" class="w-full border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="text" name="namabarang" id="nama-barang" class="w-full border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div class="mb-4">
                     <label for="jumlah-lusin" class="block mb-2">Jumlah Barang (dalam satuan lusin)</label>
-                    <input type="number" id="jumlah-lusin" class="w-full border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="number" name="banyakbarang" id="jumlah-lusin" class="w-full border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div class="mb-4">
                     <label for="harga-satuan" class="block mb-2">Harga Satuan</label>
-                    <input type="text" id="harga-satuan" class="w-full border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="text" name="harga" id="harga-satuan" class="w-full border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div class="flex justify-end">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="togglePopup()">Simpan</button>
-                    <button class="bg-gray-500 text-white px-4 py-2 rounded ml-2" onclick="togglePopup()">Cancel</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" >Simpan</button>
+                    <a href="{{route('pengeluaran')}}" class="bg-gray-500 text-white px-4 py-2 rounded ml-2" >Cancel</a>
                 </div>
             </form>
         </div>
     </div>
+    @endif
 
     <script>
         function togglePopup() {
